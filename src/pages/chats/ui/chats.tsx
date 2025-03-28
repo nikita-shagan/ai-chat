@@ -1,13 +1,8 @@
 "use client";
 
-import { Chat } from "@/widgets/chat";
-import { Menu } from "@/widgets/menu";
+import { useAppSelector } from "@/shared/model";
 
 export function Chats() {
-  return (
-    <div>
-      <Menu />
-      <Chat />
-    </div>
-  );
+  const { messages } = useAppSelector((state) => state.chat);
+  return <div>Chats {messages.join(" ")}</div>;
 }

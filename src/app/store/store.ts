@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { chatReducer } from "@/widgets/chat/model/chat-slice";
+import { chatsReducer } from "@/pages/chats";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      chat: chatReducer,
+      chat: chatsReducer,
     },
   });
 };
