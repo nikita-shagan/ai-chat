@@ -37,6 +37,15 @@ const ChatControls = styled.div`
   gap: 14px;
 `;
 
+const ChatControlsSelect = styled.div`
+  & button {
+    min-width: 170px;
+  }
+  & ul {
+    min-width: 272px;
+  }
+`;
+
 export function Chat() {
   const [input, setInput] = useState("");
   const [model, setModel] = useState("chatgpt");
@@ -46,37 +55,39 @@ export function Chat() {
       <ChatBody>
         <ChatMessages />
         <ChatControls>
-          <Select
-            items={[
-              {
-                value: "ChatGPT",
-                content: (
-                  <div>
-                    <ChatGpt /> ChatGPT
-                  </div>
-                ),
-              },
-              {
-                value: "DALL-E",
-                content: (
-                  <div>
-                    <DallE /> DALL-E
-                  </div>
-                ),
-              },
-              {
-                value: "Midjourney",
-                content: (
-                  <div>
-                    <Midjourney /> Midjourney
-                  </div>
-                ),
-              },
-            ]}
-            onChange={(value) => setModel(value)}
-            value={model}
-            outlined={true}
-          />
+          <ChatControlsSelect>
+            <Select
+              items={[
+                {
+                  value: "ChatGPT",
+                  content: (
+                    <div>
+                      <ChatGpt /> ChatGPT
+                    </div>
+                  ),
+                },
+                {
+                  value: "DALL-E",
+                  content: (
+                    <div>
+                      <DallE /> DALL-E
+                    </div>
+                  ),
+                },
+                {
+                  value: "Midjourney",
+                  content: (
+                    <div>
+                      <Midjourney /> Midjourney
+                    </div>
+                  ),
+                },
+              ]}
+              onChange={(value) => setModel(value)}
+              value={model}
+              outlined={true}
+            />
+          </ChatControlsSelect>
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}

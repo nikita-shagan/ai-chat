@@ -32,13 +32,14 @@ const DropdownButton = styled.button<{ $outlined: boolean }>`
   }
 `;
 
-const DropdownMenu = styled.div<{ open: boolean }>`
+const DropdownMenu = styled.ul<{ open: boolean; $openUp: boolean }>`
   min-width: 68px;
   border-radius: 8px;
   border: 1px solid rgba(49, 62, 98, 1);
   padding: 8px;
   position: absolute;
-  top: calc(100% + 8px);
+  ${({ $openUp }) =>
+    $openUp ? "bottom: calc(100% + 8px);" : "top: calc(100% + 8px);"}
   left: 0;
   flex-direction: column;
   gap: 2px;
@@ -47,7 +48,7 @@ const DropdownMenu = styled.div<{ open: boolean }>`
   display: ${({ open }) => (open ? "flex" : "none")};
 `;
 
-const DropdownMenuItem = styled.div<{ selected: boolean }>`
+const DropdownMenuItem = styled.li<{ selected: boolean }>`
   padding: 10px 16px;
   cursor: pointer;
   border-radius: 8px;
@@ -85,6 +86,7 @@ export function Select(props: {
   outlined?: boolean;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [openUp, setOpenUp] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (value: string) => {
@@ -111,6 +113,16 @@ export function Select(props: {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
+  useEffect(() => {
+    if (isOpen && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+
+      setOpenUp(spaceBelow < 150 && spaceAbove > spaceBelow);
+    }
+  }, [isOpen]);
+
   return (
     <>
       <Overlay open={isOpen} onClick={() => setIsOpen(false)} />
@@ -125,7 +137,7 @@ export function Select(props: {
             <Arrow />
           </Toggle>
         </DropdownButton>
-        <DropdownMenu open={isOpen}>
+        <DropdownMenu open={isOpen} $openUp={openUp}>
           {props.items.map((item) => (
             <DropdownMenuItem
               key={item.value}
