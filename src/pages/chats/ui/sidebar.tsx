@@ -1,10 +1,12 @@
 import { ChatsList } from "@/pages/chats/ui/chats-list";
 import { Logout } from "@/pages/chats/ui/logout";
 import AddChat from "@/shared/assets/images/add-chat.svg";
+import Globe from "@/shared/assets/images/globe.svg";
 import Logo from "@/shared/assets/images/logo.svg";
 import Search from "@/shared/assets/images/search.svg";
 import { IconButton } from "@/shared/ui/icon-button";
 import { Select } from "@/shared/ui/select";
+import { useState } from "react";
 import styled from "styled-components";
 
 const SidebarWrapper = styled.div`
@@ -37,6 +39,8 @@ const SidebarMainControls = styled.div`
 `;
 
 export function Sidebar() {
+  const [lang, setLang] = useState<string>("RU");
+
   return (
     <SidebarWrapper>
       <SidebarHeading>
@@ -46,6 +50,9 @@ export function Sidebar() {
             { value: "RU", content: "RU" },
             { value: "EN", content: "EN" },
           ]}
+          onChange={(value) => setLang(value)}
+          value={lang}
+          buttonIcon={<Globe />}
         />
       </SidebarHeading>
       <SidebarMain>

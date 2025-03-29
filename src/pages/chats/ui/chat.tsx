@@ -1,6 +1,10 @@
+import ChatGpt from "@/shared/assets/images/chat-gpt.svg";
+import DallE from "@/shared/assets/images/dalle.svg";
+import Midjourney from "@/shared/assets/images/midjourney.svg";
 import PlaneIcon from "@/shared/assets/images/plane.svg";
 import { IconButton } from "@/shared/ui/icon-button";
 import { Input } from "@/shared/ui/input";
+import { Select } from "@/shared/ui/select";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -30,16 +34,49 @@ const ChatMessages = styled.div`
 const ChatControls = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 14px;
 `;
 
 export function Chat() {
   const [input, setInput] = useState("");
+  const [model, setModel] = useState("chatgpt");
 
   return (
     <ChatWrapper>
       <ChatBody>
         <ChatMessages />
         <ChatControls>
+          <Select
+            items={[
+              {
+                value: "ChatGPT",
+                content: (
+                  <div>
+                    <ChatGpt /> ChatGPT
+                  </div>
+                ),
+              },
+              {
+                value: "DALL-E",
+                content: (
+                  <div>
+                    <DallE /> DALL-E
+                  </div>
+                ),
+              },
+              {
+                value: "Midjourney",
+                content: (
+                  <div>
+                    <Midjourney /> Midjourney
+                  </div>
+                ),
+              },
+            ]}
+            onChange={(value) => setModel(value)}
+            value={model}
+            outlined={true}
+          />
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}

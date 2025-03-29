@@ -1,5 +1,4 @@
 import Arrow from "@/shared/assets/images/arrow.svg";
-import Globe from "@/shared/assets/images/globe.svg";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -7,9 +6,11 @@ const DropdownWrapper = styled.div`
   position: relative;
 `;
 
-const DropdownButton = styled.button`
+const DropdownButton = styled.button<{ $outlined: boolean }>`
+  border: ${({ $outlined }) =>
+    $outlined ? "1px solid rgba(49, 62, 98, 1)" : "none"};
+  padding: ${({ $outlined }) => ($outlined ? "11px 16px" : "0")};
   background: none;
-  border: none;
   color: inherit;
   font-size: 16px;
   cursor: pointer;
@@ -17,7 +18,6 @@ const DropdownButton = styled.button`
   justify-content: space-between;
   align-items: center;
   gap: 6px;
-  height: 22px;
   border-radius: 6px;
   font-weight: 600;
   line-height: 22px;
@@ -79,13 +79,16 @@ const Toggle = styled.div<{ open: boolean }>`
 
 export function Select(props: {
   items: { value: string; content: ReactNode }[];
+  onChange: (value: string) => void;
+  value: string;
+  buttonIcon?: ReactNode;
+  outlined?: boolean;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState<"RU" | "EN">("RU");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleSelect = (lang: "RU" | "EN") => {
-    setValue(lang);
+  const handleSelect = (value: string) => {
+    props.onChange(value);
     setIsOpen(false);
   };
 
@@ -112,9 +115,12 @@ export function Select(props: {
     <>
       <Overlay open={isOpen} onClick={() => setIsOpen(false)} />
       <DropdownWrapper ref={dropdownRef}>
-        <DropdownButton onClick={() => setIsOpen(!isOpen)}>
-          <Globe />
-          {value}
+        <DropdownButton
+          onClick={() => setIsOpen(!isOpen)}
+          $outlined={props.outlined ?? false}
+        >
+          {props.buttonIcon}
+          {props.items.find((item) => item.value === props.value)?.content}
           <Toggle open={isOpen}>
             <Arrow />
           </Toggle>
@@ -123,8 +129,8 @@ export function Select(props: {
           {props.items.map((item) => (
             <DropdownMenuItem
               key={item.value}
-              selected={item.value === value}
-              onClick={() => handleSelect("RU")}
+              selected={item.value === props.value}
+              onClick={() => handleSelect(item.value)}
             >
               {item.content}
             </DropdownMenuItem>
