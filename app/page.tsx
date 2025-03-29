@@ -1,1 +1,1 @@
-export { Chats as default } from "@/pages/chats";
+export { ChatsPage as default } from "@/pages/chats";

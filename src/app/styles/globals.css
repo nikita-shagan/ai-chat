@@ -1,6 +1,6 @@
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: rgba(14, 12, 21, 1);
+  --foreground: #fff;
 }
 
 html,

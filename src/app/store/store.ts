@@ -1,10 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
 import { chatsReducer } from "@/pages/chats";
+import { authReducer } from "@/shared/model";
+import { configureStore } from "@reduxjs/toolkit";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       chat: chatsReducer,
+      auth: authReducer,
     },
   });
 };

@@ -1,17 +1,13 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { ReactNode } from "react";
-import "@/app/styles";
 import { StoreProvider } from "@/app/store";
+import "@/app/styles";
+import { StyledComponentsRegistry } from "@/app/styles";
+import type { Metadata } from "next";
+import { IBM_Plex_Sans } from "next/font/google";
+import { ReactNode } from "react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const ibmPlexSans = IBM_Plex_Sans({
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  subsets: ["cyrillic"],
 });
 
 export const metadata: Metadata = {
@@ -26,8 +22,10 @@ export function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <StoreProvider>{children}</StoreProvider>
+      <body className={`${ibmPlexSans.className}`}>
+        <StyledComponentsRegistry>
+          <StoreProvider>{children}</StoreProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
