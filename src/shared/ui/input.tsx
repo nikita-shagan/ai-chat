@@ -8,7 +8,7 @@ const InputWrapper = styled.div`
   border: 1px solid rgba(49, 62, 98, 1);
   border-radius: 8px;
   overflow: hidden;
-  height: 54px;
+  min-height: 54px;
 `;
 
 const InputComponent = styled.input`

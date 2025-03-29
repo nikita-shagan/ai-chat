@@ -9,7 +9,7 @@ const DropdownWrapper = styled.div`
 const DropdownButton = styled.button<{ $outlined: boolean }>`
   border: ${({ $outlined }) =>
     $outlined ? "1px solid rgba(49, 62, 98, 1)" : "none"};
-  padding: ${({ $outlined }) => ($outlined ? "11px 16px" : "0")};
+  padding: ${({ $outlined }) => ($outlined ? "9px 16px" : "0")};
   background: none;
   color: inherit;
   font-size: 16px;
@@ -18,7 +18,7 @@ const DropdownButton = styled.button<{ $outlined: boolean }>`
   justify-content: space-between;
   align-items: center;
   gap: 6px;
-  border-radius: 6px;
+  border-radius: 10px;
   font-weight: 600;
   line-height: 22px;
   min-width: 70px;
@@ -32,7 +32,7 @@ const DropdownButton = styled.button<{ $outlined: boolean }>`
   }
 `;
 
-const DropdownMenu = styled.ul<{ open: boolean; $openUp: boolean }>`
+const DropdownMenu = styled.ul<{ $open: boolean; $openUp: boolean }>`
   min-width: 68px;
   border-radius: 8px;
   border: 1px solid rgba(49, 62, 98, 1);
@@ -45,7 +45,7 @@ const DropdownMenu = styled.ul<{ open: boolean; $openUp: boolean }>`
   gap: 2px;
   background: rgba(18, 24, 37, 0.75);
   overflow: hidden;
-  display: ${({ open }) => (open ? "flex" : "none")};
+  display: ${({ $open }) => ($open ? "flex" : "none")};
 `;
 
 const DropdownMenuItem = styled.li<{ selected: boolean }>`
@@ -66,13 +66,20 @@ const Overlay = styled.div<{ open: boolean }>`
   z-index: 0;
 `;
 
-const Toggle = styled.div<{ open: boolean }>`
+const Toggle = styled.div<{ $open: boolean; $openUp: boolean }>`
   width: 16px;
   height: 16px;
   top: 10px;
   left: 13px;
   border-width: 2px;
-  transform: ${({ open }) => (open ? "rotate(360deg)" : "rotate(180deg)")};
+  transform: ${({ $open, $openUp }) =>
+    $open
+      ? $openUp
+        ? "rotate(180deg)"
+        : "rotate(0)"
+      : $openUp
+        ? "rotate(0)"
+        : "rotate(180deg)"};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,11 +140,11 @@ export function Select(props: {
         >
           {props.buttonIcon}
           {props.items.find((item) => item.value === props.value)?.content}
-          <Toggle open={isOpen}>
+          <Toggle $open={isOpen} $openUp={openUp}>
             <Arrow />
           </Toggle>
         </DropdownButton>
-        <DropdownMenu open={isOpen} $openUp={openUp}>
+        <DropdownMenu $open={isOpen} $openUp={openUp}>
           {props.items.map((item) => (
             <DropdownMenuItem
               key={item.value}

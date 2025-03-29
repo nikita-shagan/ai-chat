@@ -5,7 +5,7 @@ const ChatsListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-top: 1px solid rgba(49, 62, 98, 1);
-  padding-top: 8px;
+  padding-top: 4px;
 `;
 
 export function ChatsList(props: { chats: { id: string; name: string }[] }) {

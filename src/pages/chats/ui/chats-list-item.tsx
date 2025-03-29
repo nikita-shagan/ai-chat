@@ -8,7 +8,7 @@ const ChatsListWrapper = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
-  padding: 8px;
+  padding: 10px;
 `;
 
 const ChatsListItemDelete = styled.div`

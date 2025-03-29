@@ -1,4 +1,4 @@
-import Avatar from "@/shared/assets/images/avatar.svg";
+import Avatar from "@/shared/assets/images/avatar-gradient.svg";
 import LogoutIcon from "@/shared/assets/images/logout.svg";
 import { logout, useAppDispatch, useAppSelector } from "@/shared/model";
 import styled from "styled-components";
@@ -14,9 +14,17 @@ const LogoutWrapper = styled.div`
 `;
 
 const LogoutUser = styled.div`
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0%;
+`;
+
+const LogoutUserBalance = styled.div`
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
+  letter-spacing: 0%;
 `;
 
 const LogoutButton = styled(LogoutIcon)`
@@ -32,8 +40,8 @@ export function Logout() {
     <LogoutWrapper>
       <Avatar />
       <LogoutUser>
-        <div>{user?.name}</div>
-        <div>9 012 TKN</div>
+        {user?.name}
+        <LogoutUserBalance>9 012 TKN</LogoutUserBalance>
       </LogoutUser>
       <LogoutButton onClick={() => dispatch(logout())} />
     </LogoutWrapper>

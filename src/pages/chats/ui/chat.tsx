@@ -1,3 +1,5 @@
+import { ChatMessageAssistant } from "@/pages/chats/ui/chat-message-assistant";
+import { ChatMessageMy } from "@/pages/chats/ui/chat-message-my";
 import ChatGpt from "@/shared/assets/images/chat-gpt.svg";
 import DallE from "@/shared/assets/images/dalle.svg";
 import Midjourney from "@/shared/assets/images/midjourney.svg";
@@ -21,7 +23,7 @@ const ChatWrapper = styled.div`
 const ChatBody = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 1280px;
+  max-width: 1250px;
   flex-grow: 1;
 `;
 
@@ -29,6 +31,7 @@ const ChatMessages = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  gap: 16px;
 `;
 
 const ChatControls = styled.div`
@@ -38,22 +41,42 @@ const ChatControls = styled.div`
 `;
 
 const ChatControlsSelect = styled.div`
-  & button {
-    min-width: 170px;
-  }
   & ul {
     min-width: 272px;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  & li {
+    padding: 14px;
+  }
+`;
+
+const ChatControlsSelectItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+`;
+
+const ChatControlsInput = styled.div`
+  & input {
+    padding: 22px;
   }
 `;
 
 export function Chat() {
   const [input, setInput] = useState("");
-  const [model, setModel] = useState("chatgpt");
+  const [model, setModel] = useState("ChatGPT");
 
   return (
     <ChatWrapper>
       <ChatBody>
-        <ChatMessages />
+        <ChatMessages>
+          <ChatMessageMy />
+          <ChatMessageAssistant />
+        </ChatMessages>
         <ChatControls>
           <ChatControlsSelect>
             <Select
@@ -61,25 +84,25 @@ export function Chat() {
                 {
                   value: "ChatGPT",
                   content: (
-                    <div>
+                    <ChatControlsSelectItem>
                       <ChatGpt /> ChatGPT
-                    </div>
+                    </ChatControlsSelectItem>
                   ),
                 },
                 {
                   value: "DALL-E",
                   content: (
-                    <div>
+                    <ChatControlsSelectItem>
                       <DallE /> DALL-E
-                    </div>
+                    </ChatControlsSelectItem>
                   ),
                 },
                 {
                   value: "Midjourney",
                   content: (
-                    <div>
+                    <ChatControlsSelectItem>
                       <Midjourney /> Midjourney
-                    </div>
+                    </ChatControlsSelectItem>
                   ),
                 },
               ]}
@@ -88,16 +111,18 @@ export function Chat() {
               outlined={true}
             />
           </ChatControlsSelect>
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Спроси о чем-нибудь..."
-            endAdornment={
-              <IconButton $active={true}>
-                <PlaneIcon />
-              </IconButton>
-            }
-          />
+          <ChatControlsInput>
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Спроси о чем-нибудь..."
+              endAdornment={
+                <IconButton $active={true}>
+                  <PlaneIcon />
+                </IconButton>
+              }
+            />
+          </ChatControlsInput>
         </ChatControls>
       </ChatBody>
     </ChatWrapper>

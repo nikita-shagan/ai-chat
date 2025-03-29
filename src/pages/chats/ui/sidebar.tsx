@@ -13,7 +13,7 @@ const SidebarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 324px;
-  padding: 20px;
+  padding: 20px 16px;
   background-color: rgba(18, 24, 37, 1);
   border-radius: 18px;
   gap: 20px;
@@ -66,8 +66,12 @@ export function Sidebar() {
         </SidebarMainControls>
         <ChatsList
           chats={[
-            { id: "1", name: "Новый чат 1" },
-            { id: "2", name: "Новый чат 2" },
+            { id: "1", name: "Новый чат" },
+            { id: "2", name: "Новый чат" },
+            { id: "3", name: "Новый чат" },
+            { id: "4", name: "Новый чат" },
+            { id: "5", name: "Новый чат" },
+            { id: "6", name: "Новый чат" },
           ]}
         />
       </SidebarMain>
