@@ -1,5 +1,5 @@
 import ChatGPT from "@/shared/assets/images/chat-gpt-big.svg";
-import { CopyButton } from "@/shared/assets/images/copy-button";
+import { CopyButton } from "@/shared/ui/copy-button";
 import styled from "styled-components";
 
 const Wrapper = styled.div`

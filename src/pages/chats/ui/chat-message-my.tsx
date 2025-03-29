@@ -1,5 +1,5 @@
 import Avatar from "@/shared/assets/images/avatar-default.svg";
-import { CopyButton } from "@/shared/assets/images/copy-button";
+import { CopyButton } from "@/shared/ui/copy-button";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
