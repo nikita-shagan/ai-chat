@@ -1,7 +1,8 @@
 import { deleteChat, selectChat } from "@/pages/chats/model/chats-slice";
-import Chat from "@/shared/assets/images/chat.svg";
-import Delete from "@/shared/assets/images/delete.svg";
+import chatImage from "@/shared/assets/images/chat.svg";
+import deleteImage from "@/shared/assets/images/delete.svg";
 import { useAppDispatch, useAppSelector } from "@/shared/model";
+import Image from "next/image";
 import styled from "styled-components";
 
 const ChatsListWrapper = styled.div<{ $isActive: boolean }>`
@@ -44,7 +45,7 @@ export function ChatsListItem(props: { chat: { id: string; name: string } }) {
       $isActive={isActive}
       onClick={() => dispatch(selectChat(props.chat))}
     >
-      <Chat />
+      <Image src={chatImage} alt={"chatImage"} />
       <ChatsListItemName>{props.chat.name}</ChatsListItemName>
       <ChatsListItemDelete
         onClick={(e) => {
@@ -52,7 +53,7 @@ export function ChatsListItem(props: { chat: { id: string; name: string } }) {
           dispatch(deleteChat(props.chat.id));
         }}
       >
-        <Delete />
+        <Image src={deleteImage} alt={"chatImage"} />
       </ChatsListItemDelete>
     </ChatsListWrapper>
   );

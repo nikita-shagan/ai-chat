@@ -1,4 +1,5 @@
-import Arrow from "@/shared/assets/images/arrow.svg";
+import arrow from "@/shared/assets/images/arrow.svg";
+import Image from "next/image";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -141,7 +142,7 @@ export function Select(props: {
           {props.buttonIcon}
           {props.items.find((item) => item.value === props.value)?.content}
           <Toggle $open={isOpen} $openUp={openUp}>
-            <Arrow />
+            <Image src={arrow} alt={"arrow"} />
           </Toggle>
         </Button>
         <DropdownMenu $open={isOpen} $openUp={openUp}>

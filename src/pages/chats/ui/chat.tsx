@@ -1,12 +1,13 @@
 import { changeChatModel, sendMessage } from "@/pages/chats/model/chats-slice";
 import { ChatMessageAssistant } from "@/pages/chats/ui/chat-message-assistant";
 import { ChatMessageUser } from "@/pages/chats/ui/chat-message-user";
-import ChatGpt from "@/shared/assets/images/chat-gpt.svg";
-import PlaneIcon from "@/shared/assets/images/plane.svg";
+import chatGpt from "@/shared/assets/images/chat-gpt.svg";
+import planeIcon from "@/shared/assets/images/plane.svg";
 import { useAppDispatch, useAppSelector } from "@/shared/model";
 import { IconButton } from "@/shared/ui/icon-button";
 import { Input } from "@/shared/ui/input";
 import { Select } from "@/shared/ui/select";
+import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -117,7 +118,7 @@ export function Chat() {
                     value: model.id,
                     content: (
                       <ChatControlsSelectItem>
-                        <ChatGpt />
+                        <Image src={chatGpt} alt={"chatGpt"} />
                         {model.label}
                       </ChatControlsSelectItem>
                     ),
@@ -142,7 +143,7 @@ export function Chat() {
                   placeholder="Спроси о чем-нибудь..."
                   endAdornment={
                     <IconButton $active={true} onClick={handleSendMessage}>
-                      <PlaneIcon />
+                      <Image src={planeIcon} alt={"plane"} />
                     </IconButton>
                   }
                   onKeyDown={(e) => {

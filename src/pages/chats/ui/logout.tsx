@@ -1,6 +1,7 @@
-import Avatar from "@/shared/assets/images/avatar-gradient.svg";
-import LogoutIcon from "@/shared/assets/images/logout.svg";
+import avatar from "@/shared/assets/images/avatar-gradient.svg";
+import logoutImage from "@/shared/assets/images/logout.svg";
 import { logout, useAppDispatch, useAppSelector } from "@/shared/model";
+import Image from "next/image";
 import styled from "styled-components";
 
 const LogoutWrapper = styled.div`
@@ -27,7 +28,7 @@ const LogoutUserBalance = styled.div`
   letter-spacing: 0%;
 `;
 
-const LogoutButton = styled(LogoutIcon)`
+const LogoutButton = styled.div`
   cursor: pointer;
   margin-left: auto;
 `;
@@ -38,12 +39,14 @@ export function Logout() {
 
   return (
     <LogoutWrapper>
-      <Avatar />
+      <Image src={avatar} alt={"avatar"} />
       <LogoutUser>
         {user?.name}
         <LogoutUserBalance>9 012 TKN</LogoutUserBalance>
       </LogoutUser>
-      <LogoutButton onClick={() => dispatch(logout())} />
+      <LogoutButton onClick={() => dispatch(logout())}>
+        <Image src={logoutImage} alt={"logout"} />
+      </LogoutButton>
     </LogoutWrapper>
   );
 }

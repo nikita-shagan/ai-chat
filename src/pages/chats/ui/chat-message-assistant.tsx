@@ -1,7 +1,8 @@
 import { ChatMessageContent } from "@/pages/chats/ui/message-content";
-import ChatGPT from "@/shared/assets/images/chat-gpt-big.svg";
+import chatGptBig from "@/shared/assets/images/chat-gpt-big.svg";
 import { CopyButton } from "@/shared/ui/copy-button";
 import dayjs from "dayjs";
+import Image from "next/image";
 import styled from "styled-components";
 
 const Wrapper = styled.li`
@@ -76,7 +77,7 @@ export function ChatMessageAssistant(props: {
         <Badge>{props.modelId}</Badge>
       </Header>
       <Body>
-        <ChatGPT style={{ flexShrink: 0 }} />
+        <Image src={chatGptBig} alt={"chatGpt"} />
         <ChatMessageContent>{props.content}</ChatMessageContent>
       </Body>
       <Footer>

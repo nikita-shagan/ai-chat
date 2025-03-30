@@ -1,13 +1,14 @@
 import { addChat } from "@/pages/chats/model/chats-slice";
 import { ChatsList } from "@/pages/chats/ui/chats-list";
 import { Logout } from "@/pages/chats/ui/logout";
-import AddChat from "@/shared/assets/images/add-chat.svg";
-import Globe from "@/shared/assets/images/globe.svg";
-import Logo from "@/shared/assets/images/logo.svg";
-import Search from "@/shared/assets/images/search.svg";
+import addChatImage from "@/shared/assets/images/add-chat.svg";
+import globe from "@/shared/assets/images/globe.svg";
+import logo from "@/shared/assets/images/logo.svg";
+import search from "@/shared/assets/images/search.svg";
 import { useAppDispatch, useAppSelector } from "@/shared/model";
 import { IconButton } from "@/shared/ui/icon-button";
 import { Select } from "@/shared/ui/select";
+import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -49,7 +50,7 @@ export function Sidebar() {
   return (
     <SidebarWrapper>
       <SidebarHeading>
-        <Logo />
+        <Image src={logo} alt={"logo"} />
         <Select
           items={[
             { value: "RU", content: "RU" },
@@ -57,7 +58,7 @@ export function Sidebar() {
           ]}
           onChange={(value) => setLang(value)}
           value={lang}
-          buttonIcon={<Globe />}
+          buttonIcon={<Image src={globe} alt={"globe"} />}
         />
       </SidebarHeading>
       <SidebarMain>
@@ -66,10 +67,10 @@ export function Sidebar() {
             $active={true}
             onClick={() => dispatch(addChat({ existingChats: chats }))}
           >
-            <AddChat />
+            <Image src={addChatImage} alt={"addChat"} />
           </IconButton>
           <IconButton $active={false}>
-            <Search />
+            <Image src={search} alt={"search"} />
           </IconButton>
         </SidebarMainControls>
         <ChatsList />

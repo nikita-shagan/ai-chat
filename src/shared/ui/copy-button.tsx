@@ -1,4 +1,5 @@
-import Copy from "@/shared/assets/images/copy.svg";
+import copy from "@/shared/assets/images/copy.svg";
+import Image from "next/image";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -14,7 +15,7 @@ const Wrapper = styled.div`
 export function CopyButton(props: { text?: string }) {
   return (
     <Wrapper onClick={() => navigator.clipboard.writeText(props.text ?? "")}>
-      <Copy />
+      <Image src={copy} alt={"copy"} />
     </Wrapper>
   );
 }

@@ -1,7 +1,8 @@
 import { ChatMessageContent } from "@/pages/chats/ui/message-content";
-import Avatar from "@/shared/assets/images/avatar-default.svg";
+import avatar from "@/shared/assets/images/avatar-default.svg";
 import { CopyButton } from "@/shared/ui/copy-button";
 import dayjs from "dayjs";
+import Image from "next/image";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -47,7 +48,7 @@ export function ChatMessageUser(props: { content: string; createdAt: string }) {
         </Message>
         <Time>{dayjs(props.createdAt).format("HH:MM")}</Time>
       </Body>
-      <Avatar />
+      <Image src={avatar} alt={"avatar"} />
     </Wrapper>
   );
 }
