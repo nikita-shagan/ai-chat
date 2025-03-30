@@ -21,8 +21,7 @@ const Button = styled.button<{ $outlined: boolean }>`
   border-radius: 10px;
   font-weight: 600;
   line-height: 22px;
-  min-width: 150px;
-  min-height: 40px;
+  min-width: 70px;
 
   &:focus {
     outline: none;

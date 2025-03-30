@@ -131,7 +131,7 @@ export function Chat() {
                       }),
                     )
                   }
-                  value={selectedChat?.modelId ?? null}
+                  value={selectedChat.modelId}
                   outlined={true}
                 />
               </ChatControlsSelect>
