@@ -102,14 +102,16 @@ export function Chat() {
   }, [messages]);
 
   const handleSendMessage = () => {
-    dispatch(
-      sendMessage({
-        chat: selectedChat,
-        message: input,
-        existingChats: chats,
-      }),
-    );
-    setInput("");
+    if (input) {
+      dispatch(
+        sendMessage({
+          chat: selectedChat,
+          message: input,
+          existingChats: chats,
+        }),
+      );
+      setInput("");
+    }
   };
 
   return (
