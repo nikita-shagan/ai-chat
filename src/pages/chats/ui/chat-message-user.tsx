@@ -1,11 +1,13 @@
+import { ChatMessageContent } from "@/pages/chats/ui/message-content";
 import Avatar from "@/shared/assets/images/avatar-default.svg";
 import { CopyButton } from "@/shared/ui/copy-button";
+import dayjs from "dayjs";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: flex;
   gap: 8px;
-  max-width: 294px;
+  max-width: 700px;
   margin-left: auto;
   align-items: flex-end;
 `;
@@ -25,7 +27,6 @@ const Message = styled.div`
   padding: 10px;
   font-weight: 400;
   font-size: 18px;
-  line-height: 100%;
 `;
 
 const Time = styled.div`
@@ -36,13 +37,15 @@ const Time = styled.div`
   margin-top: auto;
 `;
 
-export function ChatMessageMy() {
+export function ChatMessageUser(props: { content: string; createdAt: string }) {
   return (
     <Wrapper>
-      <CopyButton text="Привет! Чем я могу помочь?" />
+      <CopyButton text={props.content} />
       <Body>
-        <Message>Привет бот</Message>
-        <Time>09:54</Time>
+        <Message>
+          <ChatMessageContent>{props.content}</ChatMessageContent>
+        </Message>
+        <Time>{dayjs(props.createdAt).format("HH:MM")}</Time>
       </Body>
       <Avatar />
     </Wrapper>

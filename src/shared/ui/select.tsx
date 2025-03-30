@@ -2,11 +2,11 @@ import Arrow from "@/shared/assets/images/arrow.svg";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-const DropdownWrapper = styled.div`
+const Wrapper = styled.div`
   position: relative;
 `;
 
-const DropdownButton = styled.button<{ $outlined: boolean }>`
+const Button = styled.button<{ $outlined: boolean }>`
   border: ${({ $outlined }) =>
     $outlined ? "1px solid rgba(49, 62, 98, 1)" : "none"};
   padding: ${({ $outlined }) => ($outlined ? "9px 16px" : "0")};
@@ -21,7 +21,8 @@ const DropdownButton = styled.button<{ $outlined: boolean }>`
   border-radius: 10px;
   font-weight: 600;
   line-height: 22px;
-  min-width: 70px;
+  min-width: 150px;
+  min-height: 40px;
 
   &:focus {
     outline: none;
@@ -43,8 +44,9 @@ const DropdownMenu = styled.ul<{ $open: boolean; $openUp: boolean }>`
   left: 0;
   flex-direction: column;
   gap: 2px;
-  background: rgba(18, 24, 37, 0.75);
-  overflow: hidden;
+  background: #121825;
+  max-height: 360px;
+  overflow-y: auto;
   display: ${({ $open }) => ($open ? "flex" : "none")};
 `;
 
@@ -88,7 +90,7 @@ const Toggle = styled.div<{ $open: boolean; $openUp: boolean }>`
 export function Select(props: {
   items: { value: string; content: ReactNode }[];
   onChange: (value: string) => void;
-  value: string;
+  value: string | null;
   buttonIcon?: ReactNode;
   outlined?: boolean;
 }) {
@@ -96,10 +98,14 @@ export function Select(props: {
   const [openUp, setOpenUp] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleSelect = (value: string) => {
-    props.onChange(value);
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    if (dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      setOpenUp(spaceBelow < 150 && spaceAbove > spaceBelow);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -120,21 +126,16 @@ export function Select(props: {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  useEffect(() => {
-    if (isOpen && dropdownRef.current) {
-      const rect = dropdownRef.current.getBoundingClientRect();
-      const spaceBelow = window.innerHeight - rect.bottom;
-      const spaceAbove = rect.top;
-
-      setOpenUp(spaceBelow < 150 && spaceAbove > spaceBelow);
-    }
-  }, [isOpen]);
+  const handleSelect = (value: string) => {
+    props.onChange(value);
+    setIsOpen(false);
+  };
 
   return (
     <>
       <Overlay open={isOpen} onClick={() => setIsOpen(false)} />
-      <DropdownWrapper ref={dropdownRef}>
-        <DropdownButton
+      <Wrapper ref={dropdownRef}>
+        <Button
           onClick={() => setIsOpen(!isOpen)}
           $outlined={props.outlined ?? false}
         >
@@ -143,7 +144,7 @@ export function Select(props: {
           <Toggle $open={isOpen} $openUp={openUp}>
             <Arrow />
           </Toggle>
-        </DropdownButton>
+        </Button>
         <DropdownMenu $open={isOpen} $openUp={openUp}>
           {props.items.map((item) => (
             <DropdownMenuItem
@@ -155,7 +156,7 @@ export function Select(props: {
             </DropdownMenuItem>
           ))}
         </DropdownMenu>
-      </DropdownWrapper>
+      </Wrapper>
     </>
   );
 }

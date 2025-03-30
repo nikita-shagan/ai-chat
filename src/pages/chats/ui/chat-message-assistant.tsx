@@ -1,17 +1,20 @@
+import { ChatMessageContent } from "@/pages/chats/ui/message-content";
 import ChatGPT from "@/shared/assets/images/chat-gpt-big.svg";
 import { CopyButton } from "@/shared/ui/copy-button";
+import dayjs from "dayjs";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const Wrapper = styled.li`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-width: 294px;
+  max-width: 700px;
 `;
 
 const Header = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 56px;
   gap: 10px;
   font-weight: 400;
   font-size: 16px;
@@ -30,12 +33,9 @@ const Badge = styled.div`
 
 const Body = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: 16px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 100%;
 `;
 
 const Footer = styled.div`
@@ -62,22 +62,28 @@ const Time = styled.div`
   margin-left: auto;
 `;
 
-export function ChatMessageAssistant() {
+export function ChatMessageAssistant(props: {
+  modelId: string;
+  content: string;
+  tokens: number;
+  createdAt: string;
+  parentModel: { id: string; label: string } | null;
+}) {
   return (
     <Wrapper>
       <Header>
-        ChatGPT
-        <Badge>gpt-3.5-turbo</Badge>
+        {props.parentModel?.label}
+        <Badge>{props.modelId}</Badge>
       </Header>
       <Body>
-        <ChatGPT />
-        Привет! Чем я могу помочь?
+        <ChatGPT style={{ flexShrink: 0 }} />
+        <ChatMessageContent>{props.content}</ChatMessageContent>
       </Body>
       <Footer>
         <Cost>
-          -223 CAPS <CopyButton text="Привет! Чем я могу помочь?" />
+          {props.tokens} CAPS <CopyButton text={props.content} />
         </Cost>
-        <Time>09:54</Time>
+        <Time>{dayjs(props.createdAt).format("HH:MM")}</Time>
       </Footer>
     </Wrapper>
   );

@@ -13,6 +13,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.1",
     "@svgr/webpack": "^8.1.0",
+    "dayjs": "^1.11.13",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

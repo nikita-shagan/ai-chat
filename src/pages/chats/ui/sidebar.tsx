@@ -1,9 +1,11 @@
+import { addChat } from "@/pages/chats/model/chats-slice";
 import { ChatsList } from "@/pages/chats/ui/chats-list";
 import { Logout } from "@/pages/chats/ui/logout";
 import AddChat from "@/shared/assets/images/add-chat.svg";
 import Globe from "@/shared/assets/images/globe.svg";
 import Logo from "@/shared/assets/images/logo.svg";
 import Search from "@/shared/assets/images/search.svg";
+import { useAppDispatch, useAppSelector } from "@/shared/model";
 import { IconButton } from "@/shared/ui/icon-button";
 import { Select } from "@/shared/ui/select";
 import { useState } from "react";
@@ -12,6 +14,7 @@ import styled from "styled-components";
 const SidebarWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 250px;
   max-width: 324px;
   padding: 20px 16px;
   background-color: rgba(18, 24, 37, 1);
@@ -39,6 +42,8 @@ const SidebarMainControls = styled.div`
 `;
 
 export function Sidebar() {
+  const dispatch = useAppDispatch();
+  const { chats } = useAppSelector((state) => state.chats);
   const [lang, setLang] = useState<string>("RU");
 
   return (
@@ -57,23 +62,17 @@ export function Sidebar() {
       </SidebarHeading>
       <SidebarMain>
         <SidebarMainControls>
-          <IconButton $active={true}>
+          <IconButton
+            $active={true}
+            onClick={() => dispatch(addChat({ existingChats: chats }))}
+          >
             <AddChat />
           </IconButton>
           <IconButton $active={false}>
             <Search />
           </IconButton>
         </SidebarMainControls>
-        <ChatsList
-          chats={[
-            { id: "1", name: "Новый чат" },
-            { id: "2", name: "Новый чат" },
-            { id: "3", name: "Новый чат" },
-            { id: "4", name: "Новый чат" },
-            { id: "5", name: "Новый чат" },
-            { id: "6", name: "Новый чат" },
-          ]}
-        />
+        <ChatsList />
       </SidebarMain>
       <Logout />
     </SidebarWrapper>

@@ -1,14 +1,19 @@
-import ChatActive from "@/shared/assets/images/chat-active.svg";
-import ChatDisabled from "@/shared/assets/images/chat-disabled.svg";
-import DeleteActive from "@/shared/assets/images/delete-active.svg";
-import DeleteDisabled from "@/shared/assets/images/delete-disabled.svg";
+import { deleteChat, selectChat } from "@/pages/chats/model/chats-slice";
+import Chat from "@/shared/assets/images/chat.svg";
+import Delete from "@/shared/assets/images/delete.svg";
+import { useAppDispatch, useAppSelector } from "@/shared/model";
 import styled from "styled-components";
 
-const ChatsListWrapper = styled.div`
+const ChatsListWrapper = styled.div<{ $isActive: boolean }>`
   display: flex;
   gap: 8px;
   align-items: center;
   padding: 10px;
+  cursor: pointer;
+  opacity: ${({ $isActive }) => ($isActive ? "1" : "0.5")};
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const ChatsListItemDelete = styled.div`
@@ -18,7 +23,7 @@ const ChatsListItemDelete = styled.div`
   cursor: pointer;
   margin-left: auto;
   &:hover {
-    opacity: 0.8;
+    opacity: 0.6;
   }
 `;
 
@@ -29,16 +34,25 @@ const ChatsListItemName = styled.span`
   letter-spacing: 0%;
 `;
 
-export function ChatsListItem(props: {
-  active: boolean;
-  chat: { id: string; name: string };
-}) {
+export function ChatsListItem(props: { chat: { id: string; name: string } }) {
+  const { selectedChat } = useAppSelector((state) => state.chats);
+  const dispatch = useAppDispatch();
+  const isActive = selectedChat?.id === props.chat?.id;
+
   return (
-    <ChatsListWrapper>
-      {props.active ? <ChatActive /> : <ChatDisabled />}
+    <ChatsListWrapper
+      $isActive={isActive}
+      onClick={() => dispatch(selectChat(props.chat))}
+    >
+      <Chat />
       <ChatsListItemName>{props.chat.name}</ChatsListItemName>
-      <ChatsListItemDelete>
-        {props.active ? <DeleteActive /> : <DeleteDisabled />}{" "}
+      <ChatsListItemDelete
+        onClick={(e) => {
+          e.stopPropagation();
+          dispatch(deleteChat(props.chat.id));
+        }}
+      >
+        <Delete />
       </ChatsListItemDelete>
     </ChatsListWrapper>
   );

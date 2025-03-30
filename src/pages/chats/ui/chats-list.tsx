@@ -1,4 +1,5 @@
 import { ChatsListItem } from "@/pages/chats/ui/chats-list-item";
+import { useAppSelector } from "@/shared/model";
 import styled from "styled-components";
 
 const ChatsListWrapper = styled.div`
@@ -8,12 +9,19 @@ const ChatsListWrapper = styled.div`
   padding-top: 4px;
 `;
 
-export function ChatsList(props: { chats: { id: string; name: string }[] }) {
+export function ChatsList() {
+  const { chats } = useAppSelector((state) => state.chats);
+
   return (
     <ChatsListWrapper>
-      {props.chats.map((chat) => (
-        <ChatsListItem key={chat.id} active={true} chat={chat} />
-      ))}
+      {[...chats]
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+        )
+        .map((chat) => (
+          <ChatsListItem key={chat.id} chat={chat} />
+        ))}
     </ChatsListWrapper>
   );
 }

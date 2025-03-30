@@ -5,7 +5,7 @@ import { configureStore } from "@reduxjs/toolkit";
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      chat: chatsReducer,
+      chats: chatsReducer,
       auth: authReducer,
     },
   });
