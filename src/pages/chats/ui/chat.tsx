@@ -8,7 +8,7 @@ import { IconButton } from "@/shared/ui/icon-button";
 import { Input } from "@/shared/ui/input";
 import { Select } from "@/shared/ui/select";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const ChatWrapper = styled.div`
@@ -19,12 +19,15 @@ const ChatWrapper = styled.div`
   gap: 20px;
   flex-grow: 1;
   justify-content: center;
+  @media (max-width: 720px) {
+    padding: 8px;
+  }
 `;
 
 const ChatBody = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 30px;
   max-width: 1270px;
   flex-grow: 1;
 `;
@@ -68,6 +71,12 @@ const ChatControlsInput = styled.div`
   & input {
     padding: 22px;
   }
+  @media (max-width: 720px) {
+    & input {
+      padding-left: 8px;
+      padding-right: 0;
+    }
+  }
 `;
 
 const ChatEmpty = styled.div`
@@ -83,6 +92,14 @@ export function Chat() {
   const [input, setInput] = useState("");
   const { selectedChat, messages, models, chats, chatsLoading } =
     useAppSelector((state) => state.chats);
+  const chatRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const container = chatRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSendMessage = () => {
     dispatch(
@@ -100,9 +117,13 @@ export function Chat() {
       <ChatBody>
         {selectedChat && !chatsLoading ? (
           <>
-            <ChatMessages>
+            <ChatMessages ref={chatRef}>
               {[...messages]
-                .reverse()
+                .sort(
+                  (a, b) =>
+                    new Date(a.createdAt).valueOf() -
+                    new Date(b.createdAt).valueOf(),
+                )
                 .map((message) =>
                   message.role === "assistant" ? (
                     <ChatMessageAssistant key={message.id} {...message} />

@@ -15,13 +15,16 @@ import styled from "styled-components";
 const SidebarWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 250px;
+  min-width: 324px;
   max-width: 324px;
   padding: 20px 16px;
   background-color: rgba(18, 24, 37, 1);
   border-radius: 18px;
   gap: 20px;
   flex-grow: 1;
+  @media (max-width: 720px) {
+    display: none;
+  }
 `;
 
 const SidebarHeading = styled.div`

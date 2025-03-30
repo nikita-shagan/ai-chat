@@ -15,7 +15,10 @@ export const mapMessageDtoToMessage = (message: MessageDto): Message => ({
   tokens: message.tokens,
   createdAt: message.created_at,
   modelId: message.model_id,
-  parentModel: message.model?.parent ?? null,
+  parentModel: {
+    id: message.model?.parent?.id,
+    label: message.model?.parent?.label,
+  },
 });
 
 export const mapModelDtoToModel = (model: ModelDto): Model => ({

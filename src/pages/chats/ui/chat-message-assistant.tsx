@@ -78,13 +78,17 @@ export function ChatMessageAssistant(props: {
       </Header>
       <Body>
         <Image src={chatGptBig} alt={"chatGpt"} />
-        <ChatMessageContent>{props.content}</ChatMessageContent>
+        <ChatMessageContent>{props.content || "..."}</ChatMessageContent>
       </Body>
       <Footer>
-        <Cost>
-          {props.tokens} CAPS <CopyButton text={props.content} />
-        </Cost>
-        <Time>{dayjs(props.createdAt).format("HH:MM")}</Time>
+        {!!props.tokens && (
+          <Cost>
+            {props.tokens} CAPS <CopyButton text={props.content} />
+          </Cost>
+        )}
+        {!!props.tokens && (
+          <Time>{dayjs(props.createdAt).format("HH:MM")}</Time>
+        )}
       </Footer>
     </Wrapper>
   );

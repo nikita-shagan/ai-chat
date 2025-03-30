@@ -7,6 +7,7 @@ import {
   postMessage,
   updateChat,
 } from "@/pages/chats/api/api";
+import { createChatStream, getChatStream } from "@/pages/chats/api/sseChatApi";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export type Model = {
@@ -126,8 +127,32 @@ export const fetchMessages = createAsyncThunk<Message[] | null, string>(
   },
 );
 
+export const createMessage = createAsyncThunk<Message | null, Message>(
+  "chats/createMessage",
+  async (message) => {
+    try {
+      return message;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  },
+);
+
+export const updateMessage = createAsyncThunk<Message | null, Message>(
+  "chats/updateMessage",
+  async (message) => {
+    try {
+      return message;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  },
+);
+
 export const sendMessage = createAsyncThunk<
-  Message | null,
+  void,
   {
     chat: Chat | null;
     message: string;
@@ -142,12 +167,21 @@ export const sendMessage = createAsyncThunk<
         chatId = (await dispatch(addChat({ existingChats })).unwrap())?.id;
       }
       if (chatId) {
-        return await postMessage(chatId, message);
+        const stream = getChatStream(chatId);
+        if (!stream) {
+          createChatStream(chatId, {
+            onCreateMessage: (message) => {
+              dispatch(createMessage(message));
+            },
+            onUpdateMessage: (message) => {
+              dispatch(updateMessage(message));
+            },
+          });
+        }
+        await postMessage(chatId, message);
       }
-      return null;
     } catch (e) {
       console.log(e);
-      return null;
     }
   },
 );
@@ -217,9 +251,20 @@ const chatsSlice = createSlice({
         state.messages = action.payload;
       }
     });
-    builder.addCase(sendMessage.fulfilled, (state, action) => {
+    builder.addCase(createMessage.fulfilled, (state, action) => {
       if (action.payload) {
         state.messages.push(action.payload);
+      }
+    });
+    builder.addCase(updateMessage.fulfilled, (state, action) => {
+      const message = action.payload;
+      if (message) {
+        state.messages = state.messages.map((m) => {
+          if (m.id === message.id) {
+            return { ...m, content: message.content, tokens: message.tokens };
+          }
+          return m;
+        });
       }
     });
     builder.addCase(fetchModels.fulfilled, (state, action) => {

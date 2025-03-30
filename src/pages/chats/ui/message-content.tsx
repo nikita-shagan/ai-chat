@@ -5,7 +5,7 @@ export const ChatMessageContent = styled.div`
   font-size: 18px;
   overflow-wrap: break-word;
   line-height: 150%;
-  color: #dadada;
+  color: #e6e6e6;
   word-spacing: 2px;
   display: flex;
   align-items: center;

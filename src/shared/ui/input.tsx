@@ -21,6 +21,11 @@ const InputComponent = styled.input`
   border: none;
   flex-grow: 1;
 
+  @media (max-width: 720px) {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
   &::placeholder {
     color: rgba(97, 109, 141, 1);
   }

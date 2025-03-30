@@ -1,6 +1,4 @@
-import { backendBaseUrl } from "@/shared/config";
-
-const API_TOKEN = process.env.NEXT_PUBLIC_API_TOKEN ?? "";
+import { API_TOKEN, backendBaseUrl } from "@/shared/config";
 
 const getQueryParams = (data?: Record<string, string>) => {
   const queryParamsString = new URLSearchParams(data).toString();
