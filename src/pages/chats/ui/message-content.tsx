@@ -6,8 +6,20 @@ export const ChatMessageContent = styled.div`
   overflow-wrap: break-word;
   line-height: 150%;
   color: #e6e6e6;
-  word-spacing: 2px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   height: 100%;
+  gap: 16px;
+  & pre {
+    font-size: 14px;
+  }
+  @media (max-width: 960px) {
+    font-size: 14px;
+    & pre {
+      max-width: 320px;
+      overflow: auto;
+      font-size: 12px;
+    }
+  }
 `;

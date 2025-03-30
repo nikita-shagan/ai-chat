@@ -3,6 +3,7 @@ import chatGptBig from "@/shared/assets/images/chat-gpt-big.svg";
 import { CopyButton } from "@/shared/ui/copy-button";
 import dayjs from "dayjs";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
 
 const Wrapper = styled.li`
@@ -21,6 +22,9 @@ const Header = styled.div`
   font-size: 16px;
   line-height: 22px;
   align-items: center;
+  @media (max-width: 960px) {
+    padding-left: 0;
+  }
 `;
 
 const Badge = styled.div`
@@ -53,7 +57,9 @@ const Cost = styled.div`
   line-height: 22px;
   color: rgba(156, 163, 175, 1);
   letter-spacing: 0;
-  align-items: c;
+  @media (max-width: 960px) {
+    padding-left: 0;
+  }
 `;
 
 const Time = styled.div`
@@ -61,6 +67,12 @@ const Time = styled.div`
   font-size: 12px;
   line-height: 11px;
   margin-left: auto;
+`;
+
+const ModelLogo = styled.div`
+  @media (max-width: 960px) {
+    display: none;
+  }
 `;
 
 export function ChatMessageAssistant(props: {
@@ -77,8 +89,12 @@ export function ChatMessageAssistant(props: {
         <Badge>{props.modelId}</Badge>
       </Header>
       <Body>
-        <Image src={chatGptBig} alt={"chatGpt"} />
-        <ChatMessageContent>{props.content || "..."}</ChatMessageContent>
+        <ModelLogo>
+          <Image src={chatGptBig} alt={"chatGpt"} />
+        </ModelLogo>
+        <ChatMessageContent>
+          <ReactMarkdown>{props.content || "..."}</ReactMarkdown>
+        </ChatMessageContent>
       </Body>
       <Footer>
         {!!props.tokens && (

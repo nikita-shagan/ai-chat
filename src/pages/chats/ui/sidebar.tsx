@@ -22,7 +22,7 @@ const SidebarWrapper = styled.div`
   border-radius: 18px;
   gap: 20px;
   flex-grow: 1;
-  @media (max-width: 720px) {
+  @media (max-width: 960px) {
     display: none;
   }
 `;

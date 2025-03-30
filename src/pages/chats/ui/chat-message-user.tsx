@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const Wrapper = styled.li`
   display: flex;
   gap: 8px;
   max-width: 700px;

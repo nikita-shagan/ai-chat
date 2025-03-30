@@ -21,9 +21,9 @@ const InputComponent = styled.input`
   border: none;
   flex-grow: 1;
 
-  @media (max-width: 720px) {
-    padding-left: 4px;
-    padding-right: 4px;
+  @media (max-width: 960px) {
+    padding-left: 16px;
+    padding-right: 0;
   }
 
   &::placeholder {
