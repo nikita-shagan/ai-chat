@@ -21,7 +21,7 @@ const Header = styled.div`
   font-size: 16px;
   line-height: 22px;
   align-items: center;
-  @media (max-width: 960px) {
+  @media (max-width: 540px) {
     padding-left: 0;
   }
 `;
@@ -56,7 +56,7 @@ const Cost = styled.div`
   line-height: 22px;
   color: rgba(156, 163, 175, 1);
   letter-spacing: 0;
-  @media (max-width: 960px) {
+  @media (max-width: 540px) {
     padding-left: 0;
   }
 `;
@@ -69,7 +69,7 @@ const Time = styled.div`
 `;
 
 const ModelLogo = styled.div`
-  @media (max-width: 960px) {
+  @media (max-width: 540px) {
     display: none;
   }
 `;

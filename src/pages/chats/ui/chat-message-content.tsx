@@ -11,27 +11,32 @@ export const ChatMessageContent = styled.div`
   text-overflow: ellipsis;
   white-space: pre-wrap;
   overflow-wrap: break-word;
-  max-width: 600px;
+  max-width: 700px;
   & p {
     line-height: 150%;
   }
   & pre {
-    max-width: 600px;
+    max-width: 700px;
     overflow: auto;
   }
   @media (max-width: 1280px) {
-    max-width: 350px;
+    max-width: 360px;
+    & pre {
+      max-width: 360px;
+    }
   }
   @media (max-width: 960px) {
-    max-width: 400px;
     font-size: 16px;
-  }
-  @media (max-width: 450px) {
-    max-width: 250px;
-    font-size: 14px;
     & pre {
-      max-width: 320px;
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 540px) {
+    font-size: 14px;
+    max-width: 270px;
+    & pre {
       font-size: 12px;
+      max-width: 270px;
     }
   }
 `;

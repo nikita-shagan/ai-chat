@@ -12,7 +12,7 @@ const Wrapper = styled.li`
   align-items: flex-end;
 `;
 
-const Body = styled.div`
+const WrapperBody = styled.div`
   padding: 7px 8px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -20,35 +20,55 @@ const Body = styled.div`
   background: rgba(71, 133, 255, 0.5);
   display: flex;
   gap: 4px;
+  position: relative;
+  @media (max-width: 540px) {
+    padding: 2px;
+  }
 `;
 
-const Message = styled.div`
+const WrapperBodyMessage = styled.div`
   padding: 10px;
   font-weight: 400;
   font-size: 18px;
+  @media (max-width: 540px) {
+    padding: 2px 2px 14px;
+  }
 `;
 
-const Time = styled.div`
+const WrapperBodyTime = styled.div`
   font-weight: 400;
   font-size: 12px;
   line-height: 11px;
   margin-left: auto;
   margin-top: auto;
+  @media (max-width: 540px) {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+  }
+`;
+
+const WrapperAvatar = styled(Image)`
+  @media (max-width: 540px) {
+    display: none;
+  }
 `;
 
 export function ChatMessageUser(props: { content: string; createdAt: string }) {
   return (
     <Wrapper>
       <CopyButton text={props.content} />
-      <Body>
-        <Message>
+      <WrapperBody>
+        <WrapperBodyMessage>
           <ChatMessageContent>
             <p>{props.content}</p>
           </ChatMessageContent>
-        </Message>
-        <Time>{dayjs(props.createdAt).format("HH:MM")}</Time>
-      </Body>
-      <Image src={avatar} alt={"avatar"} />
+        </WrapperBodyMessage>
+        <WrapperBodyTime>
+          {dayjs(props.createdAt).format("HH:MM")}
+        </WrapperBodyTime>
+      </WrapperBody>
+      <WrapperAvatar src={avatar} alt={"avatar"} />
     </Wrapper>
   );
 }

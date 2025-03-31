@@ -93,13 +93,37 @@ export function Chat() {
   const { selectedChat, messages, models, chats, chatsLoading } =
     useAppSelector((state) => state.chats);
   const chatRef = useRef<HTMLUListElement>(null);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleUserScrollStart = () => {
+      setIsUserScrolling(true);
+    };
+    const element = chatRef.current;
+    if (!element) {
+      return;
+    }
+    element.addEventListener("wheel", handleUserScrollStart);
+    element.addEventListener("touchmove", handleUserScrollStart);
+    element.addEventListener("pointerdown", handleUserScrollStart);
+    return () => {
+      element.removeEventListener("wheel", handleUserScrollStart);
+      element.removeEventListener("touchmove", handleUserScrollStart);
+      element.removeEventListener("pointerdown", handleUserScrollStart);
+    };
+  }, [selectedChat]);
 
   useEffect(() => {
     const container = chatRef.current;
-    if (container) {
+    console.log(isUserScrolling);
+    if (container && !isUserScrolling) {
       container.scrollTop = container.scrollHeight;
     }
-  }, [messages]);
+  }, [isUserScrolling, messages]);
+
+  useEffect(() => {
+    setIsUserScrolling(false);
+  }, [messages.length]);
 
   const handleSendMessage = () => {
     if (input) {
