@@ -1,4 +1,4 @@
-import { ChatMessageContent } from "@/pages/chats/ui/message-content";
+import { ChatMessageContent } from "@/pages/chats/ui/chat-message-content";
 import chatGptBig from "@/shared/assets/images/chat-gpt-big.svg";
 import { CopyButton } from "@/shared/ui/copy-button";
 import dayjs from "dayjs";
@@ -10,7 +10,6 @@ const Wrapper = styled.li`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-width: 700px;
 `;
 
 const Header = styled.div`

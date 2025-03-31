@@ -1,4 +1,4 @@
-import { ChatMessageContent } from "@/pages/chats/ui/message-content";
+import { ChatMessageContent } from "@/pages/chats/ui/chat-message-content";
 import avatar from "@/shared/assets/images/avatar-default.svg";
 import { CopyButton } from "@/shared/ui/copy-button";
 import dayjs from "dayjs";
@@ -8,13 +8,11 @@ import styled from "styled-components";
 const Wrapper = styled.li`
   display: flex;
   gap: 8px;
-  max-width: 700px;
   margin-left: auto;
   align-items: flex-end;
 `;
 
 const Body = styled.div`
-  max-width: 300px;
   padding: 7px 8px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -44,7 +42,9 @@ export function ChatMessageUser(props: { content: string; createdAt: string }) {
       <CopyButton text={props.content} />
       <Body>
         <Message>
-          <ChatMessageContent>{props.content}</ChatMessageContent>
+          <ChatMessageContent>
+            <p>{props.content}</p>
+          </ChatMessageContent>
         </Message>
         <Time>{dayjs(props.createdAt).format("HH:MM")}</Time>
       </Body>
